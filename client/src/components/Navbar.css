@@ -1,0 +1,92 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem;
+    background-color: #E5E5E5;
+    position: relative;
+    z-index: 50;
+    
+}
+
+.logo {
+    /* color: #FCA311; */
+    margin-left: 2.75rem;
+    margin-top: 0.25rem;
+    text-align: center;
+}
+
+.alumini {
+    color: #14213D;
+    font-size: x-large;
+    text-shadow: #14213D;
+    font-family: "Pacifico", cursive;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.suite {
+    color: #FCA311;
+    font-size: x-large;
+    text-shadow: #FCA311;
+    font-family: "Pacifico", cursive;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-family: "Poppins", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+}
+
+.nav-link {
+    color: #FCA311;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.btn {
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+}
+
+.sign-up {
+    background-color: #FFFFFF;
+    color: #14213D;
+}
+
+.login-up {
+    background-color: #FFFFFF;
+    color: #14213D;
+}
+
+
+@media screen and (max-width: 768px) {
+    .nav-links {
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+        padding-right: 0.5%;
+        padding-left: 0.5%;
+    }
+    
+}
+
+
+@media screen and (max-width: 425px) {
+    .navbar {
+        flex-direction: row;
+    }
+
+    /* Hamburger menu icon */
+
+    .logo {
+        margin-left: 0;
+        text-align: center;
+        align-items: center;
+    }
+}
