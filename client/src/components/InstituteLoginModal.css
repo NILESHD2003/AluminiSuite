@@ -1,0 +1,76 @@
+.institute-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 50;
+    font-family: "Poppins", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+}
+
+.institute-modal-background {
+    position: absolute;
+    inset: 0;
+}
+
+.institute-modal-container {
+    position: relative;
+    background-color: #14213D;
+    padding: 2rem;
+    border-radius: 0.75rem;
+    z-index: 51;
+    max-width: 24rem;
+    width: 100%;
+    text-align: center;
+}
+
+.institute-modal-title {
+    color: #FCA311;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.institute-modal-close {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    font-size: 1.25rem;
+    color: #888;
+}
+
+.form-field {
+    margin-top: 1rem;
+}
+
+.form-field label {
+    display: block;
+    color: #FFFFFF;
+    text-align: left;
+    font-weight: 600;
+}
+
+.form-field input {
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+    border: 1px solid #E5E5E5;
+    border-radius: 0.375rem;
+}
+
+.error-message {
+    color: red;
+    margin-top: 1rem;
+}
+
+.submit-btn {
+    background-color: #FFFFFF;
+    color: #14213D;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    margin-top: 1rem;
+    width: 100%;
+}

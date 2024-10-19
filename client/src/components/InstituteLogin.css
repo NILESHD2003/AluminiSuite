@@ -1,0 +1,32 @@
+.login-section {
+    background-color: #14213D;
+    padding: 2.5rem;
+    border-radius: 0.5rem;
+    text-align: center;
+    margin: 2rem;
+    font-family: "Poppins", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+    padding-top: 5%;
+}
+
+.login-title {
+    color: #FCA311;
+    font-size: 1.875rem; /* equivalent to text-3xl */
+}
+
+.login-description {
+    color: #FFFFFF;
+    margin-top: 0.75rem; /* mt-3 */
+    margin-bottom: 1.25rem; /* mb-5 */
+}
+
+.login-button {
+    background-color: #000000;
+    color: white;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+

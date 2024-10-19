@@ -1,0 +1,31 @@
+.student-login-section {
+    background-color: white;
+    padding: 2.5rem;
+    border-radius: 0.5rem;
+    text-align: center;
+    margin: 2rem;
+    border: 2px solid #E5E5E5;
+    font-family: "Poppins", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+}
+
+.title {
+    color: #FCA311;
+    font-size: 1.875rem; 
+}
+
+.description {
+    color: #000000;
+    margin-top: 0.75rem; 
+    margin-bottom: 1.25rem; 
+}
+
+.login-btn {
+    background-color: transparent;
+    color: #000000;
+    border: 2px solid #E5E5E5;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+}
