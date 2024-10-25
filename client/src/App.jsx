@@ -1,17 +1,24 @@
-import { useState } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import LandingPage from "./pages/landingPage";
 import "./App.css";
-import { Input } from "./components/ui/input";
-import { Button } from "./components/ui/button";
-import { Calendar } from "./components/ui/calendar";
+import Login from "./pages/Login";
+import ManageNetwork from "./pages/ManageNetwork";
+import AddStudent from "./pages/AddStudent";
+import NotFound from "./pages/NotFound";
 
 function App() {
-  const [date, setDate] = useState(Date())
-
   return (
-    <>
-      <Button>Hello</Button>
-
-    </>
+    <Router>
+      <div className="">
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/manageNetworks" element={<ManageNetwork />} />
+          <Route path="/AddStudent" element={<AddStudent />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
