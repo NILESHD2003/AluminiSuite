@@ -55,9 +55,8 @@ const LandingPage = () => {
                 </div>
                 <RetroGrid />
             </div>
-            <div className='w-full h-screen '>
+            <div className='w-full h-fit '>
 
-                {/* Features Section */}
                 <FlipText
                     className="text-4xl md:text-6xl font-bold my-6 md:my-8 tracking-wide text-black dark:text-white"
                     word="Features"
@@ -71,7 +70,11 @@ const LandingPage = () => {
 
             {/* Marquee Section */}
             <div className="w-full my-8 " data-aos="fade-up">
-                <h1>Feedbacks</h1>
+                <FlipText
+                    className="text-4xl md:text-6xl font-bold my-6 md:my-8 tracking-wide text-black dark:text-white"
+                    word="Feedbacks"
+                    data-aos="fade-up"
+                />
                 <MarqueeDemo />
             </div>
 

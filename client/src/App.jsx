@@ -5,20 +5,40 @@ import Login from "./pages/Login";
 import ManageNetwork from "./pages/ManageNetwork";
 import AddStudent from "./pages/AddStudent";
 import NotFound from "./pages/NotFound";
+import { AuthProvider } from '../context/AuthContext';
+import ProtectedRoute from "../protectedRoute/ProtectedRoute"
 
 function App() {
   return (
-    <Router>
-      <div className="">
+    <AuthProvider>
+
+      <Router>
+
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/manageNetworks" element={<ManageNetwork />} />
-          <Route path="/AddStudent" element={<AddStudent />} />
+          <Route path="/manageNetworks" element={
+            <ProtectedRoute>
+
+              <ManageNetwork />
+            </ProtectedRoute>
+
+          }
+
+          />
+          <Route path="/AddStudent" element={
+            <ProtectedRoute>
+
+
+              <AddStudent />
+            </ProtectedRoute>
+
+          } />
           <Route path="*" element={<NotFound />} />
         </Routes>
-      </div>
-    </Router>
+
+      </Router>
+    </AuthProvider>
   );
 }
 
