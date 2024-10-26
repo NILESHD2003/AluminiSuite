@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const mailSender = require("../Utils/mailSender.js");
+const mailSender = require("../Utils/MailSender.js");
 // const emailTemplate = require('../mail/emailVerification');
 const otpMail = require("../Mails/otpMail");
 
