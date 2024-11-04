@@ -19,7 +19,8 @@ class _PasswordSetPageState extends State<PasswordSetPage> {
           onPressed: () {
             Navigator.of(context).pop();
           },
-          icon: const Icon(Icons.arrow_back_ios_new_outlined, color: Colors.grey),
+          icon:
+              const Icon(Icons.arrow_back_ios_new_outlined, color: Colors.grey),
         ),
       ),
       body: Padding(
