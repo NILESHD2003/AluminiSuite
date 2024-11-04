@@ -16,7 +16,8 @@ class _SplashPageState extends State<SplashPage> {
 
     // Show a Snackbar for loading experience
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      const snackBar =  SnackBar(content: Text('Please Wait! Loading Experience...'));
+      const snackBar =
+          SnackBar(content: Text('Please Wait! Loading Experience...'));
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     });
 
@@ -34,9 +35,7 @@ class _SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0
-      ),
+      appBar: AppBar(elevation: 0),
       body: Center(
         child: RichText(
           text: TextSpan(

@@ -1,4 +1,4 @@
-import 'package:aluminiSuite/pages/PasswordSetPage.dart';
+import 'package:aluminiSuite/pages/password_setup_page.dart';
 import 'package:flutter/material.dart';
 
 class OtpPage extends StatefulWidget {
@@ -71,7 +71,11 @@ class _OtpPageState extends State<OtpPage> {
                     backgroundColor: WidgetStateProperty.all(
                         const Color.fromRGBO(252, 163, 17, 1)),
                   ),
-                  child: const Text("Verify", style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w800)),
+                  child: const Text("Verify",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w800)),
                 ),
               ),
               const Spacer(flex: 2),
