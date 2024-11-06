@@ -3,32 +3,41 @@ import { FiFile, FiX } from 'react-icons/fi';
 import { Picker } from 'emoji-mart';
 
 function PostModal() {
-  const [showModal, setShowModal] = useState(false);
-  const [postContent, setPostContent] = useState('');
-  const [isPosting, setIsPosting] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
-  const [selectedImages, setSelectedImages] = useState([]);
-  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+  const [showModal, setShowModal] = useState(false); // Modal visibility state
+  const [postContent, setPostContent] = useState(''); // State to hold post content
+  const [isPosting, setIsPosting] = useState(false); // State for post submission loading
+  const [errorMessage, setErrorMessage] = useState(''); // State for error message
+  const [selectedImages, setSelectedImages] = useState([]); // State for selected image previews
+  const [uploadedImageUrls, setUploadedImageUrls] = useState([]); // State for uploaded image URLs
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false); // State for emoji picker visibility
 
   const handlePost = () => {
     // Check if content or images are provided
-    if (postContent.trim() === '' && selectedImages.length === 0) {
+    if (postContent.trim() === '' && uploadedImageUrls.length === 0) {
       setErrorMessage('Please enter some content or add an image before posting.');
       return;
     }
 
     setIsPosting(true);
 
-    // Simulate posting action
-    setTimeout(() => {
-      setIsPosting(false);
-      setShowModal(false);
-      setPostContent('');
-      setErrorMessage('');
-      setSelectedImages([]);
-    }, 2000);
+    // Prepare post data (no fetch, just logging for now)
+    const postData = {
+      content: postContent,
+      images: uploadedImageUrls, // Include the final URLs in the post data
+    };
+
+    console.log('Post Data:', postData); // Log the data instead of posting
+
+    // Reset form after successful post
+    setIsPosting(false);
+    setShowModal(false);
+    setPostContent('');
+    setErrorMessage('');
+    setSelectedImages([]);
+    setUploadedImageUrls([]); // Clear uploaded URLs after posting
   };
 
+  // Handles changes to post content, ensuring word limit
   const handleInputChange = (e) => {
     const value = e.target.value;
     const wordCount = value.trim().split(/\s+/).length;
@@ -39,6 +48,7 @@ function PostModal() {
     }
   };
 
+  // Handles image selection and preview
   const handleImageChange = (e) => {
     const files = Array.from(e.target.files);
 
@@ -48,20 +58,46 @@ function PostModal() {
       return;
     }
 
-    const imageUrls = files.map((file) => URL.createObjectURL(file));
-    setSelectedImages((prevImages) => [...prevImages, ...imageUrls]);
+    // Clear the error message when images are selected correctly
+    setErrorMessage('');
+
+    // Preview images on the frontend
+    const previewUrls = files.map((file) => URL.createObjectURL(file));
+    setSelectedImages((prevImages) => [...prevImages, ...previewUrls]);
+
+    // Simulate uploading and storing URLs (this is where you would call your actual upload API)
+    handleImageUpload(files); 
   };
 
+  // Simulate image upload and store URLs in uploadedImageUrls
+  const handleImageUpload = (files) => {
+    // Simulate the image URL generation (e.g., after uploading to a server)
+    const uploadedUrls = files.map((file) => {
+      return URL.createObjectURL(file); // Simulating the URL
+    });
+
+    // Update the uploaded image URLs state
+    setUploadedImageUrls((prevUrls) => [...prevUrls, ...uploadedUrls]);
+
+    // Log the uploaded image URLs
+    console.log('Uploaded Image URLs:', uploadedUrls);
+  };
+
+  // Add emoji to post content
   const addEmoji = (emoji) => {
     setPostContent((prev) => prev + emoji.native);
   };
 
+  // Remove selected image
   const removeImage = (index) => {
     setSelectedImages((prevImages) => prevImages.filter((_, i) => i !== index));
+    setUploadedImageUrls((prevUrls) => prevUrls.filter((_, i) => i !== index)); // Remove corresponding uploaded URL
   };
 
+  // Clear all selected images
   const clearAllImages = () => {
     setSelectedImages([]);
+    setUploadedImageUrls([]); // Clear all uploaded URLs
   };
 
   return (
