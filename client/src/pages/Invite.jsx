@@ -5,6 +5,7 @@ const Invite = () => {
   const [customMessage, setCustomMessage] = useState('Your default message goes here...');
   const [selectedBatch, setSelectedBatch] = useState('2024');
   const [email, setEmail] = useState('');
+  const [selectedCommunities, setSelectedCommunities] = useState([]);
 
   const toggleRole = () => {
     setIsAlumni(!isAlumni);
@@ -34,9 +35,17 @@ const Invite = () => {
     const value = e.target.value;
     const wordCount = value.trim().split(/\s+/).length;
 
-    // Allow input only if word count is 100 or less
     if (wordCount <= 100) {
       setCustomMessage(value);
+    }
+  };
+
+  const handleCommunityChange = (e) => {
+    const value = e.target.value;
+    if (selectedCommunities.includes(value)) {
+      setSelectedCommunities(selectedCommunities.filter((community) => community !== value));
+    } else {
+      setSelectedCommunities([...selectedCommunities, value]);
     }
   };
 
@@ -46,39 +55,43 @@ const Invite = () => {
         <h2 className="text-xl font-bold mb-4">Invite Student/Alumni</h2>
 
         <form action="" method="post">
-          <label htmlFor="batch" className="block mb-2 font-medium text-sm">
-            Batch
-          </label>
-          <select
-            name="batch-selected"
-            id="batch"
-            value={selectedBatch}
-            onChange={handleBatchChange}
-            className="w-full border border-gray-300 rounded-md p-2 mb-4 text-sm"
-          >
-            <option value="2024">2024</option>
-            <option value="2023">2023</option>
-            <option value="2022">2022</option>
-            <option value="2021">2021</option>
-            <option value="2020">2020</option>
-          </select>
+          <div className="flex items-center mb-2">
+            <label htmlFor="batch" className="font-medium text-sm w-1/4 text-right pr-2">
+              Batch:
+            </label>
+            <select
+              name="batch-selected"
+              id="batch"
+              value={selectedBatch}
+              onChange={handleBatchChange}
+              className="w-3/4 border border-gray-300 rounded-md p-1 text-sm"
+            >
+              <option value="2024">2024</option>
+              <option value="2023">2023</option>
+              <option value="2022">2022</option>
+              <option value="2021">2021</option>
+              <option value="2020">2020</option>
+            </select>
+          </div>
 
-          <label htmlFor="email" className="block mb-2 font-medium text-sm">
-            Email:
-          </label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={email}
-            onChange={handleEmailChange}
-            required
-            className="w-full border border-gray-300 rounded-md p-2 mb-4 text-sm"
-          />
+          <div className="flex items-center mb-2">
+            <label htmlFor="email" className="font-medium text-sm w-1/4 text-right pr-2">
+              Email:
+            </label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={email}
+              onChange={handleEmailChange}
+              required
+              className="w-3/4 border border-gray-300 rounded-md p-1 text-sm"
+            />
+          </div>
 
-          <div className="flex items-center mb-4">
-            <span className="mr-2 font-medium text-sm">Role:</span>
-            <label htmlFor="roleToggle" className="relative inline-flex items-center cursor-pointer">
+          <div className="flex items-center mb-2">
+            <span className="font-medium text-sm w-1/4 text-right pr-2">Role:</span>
+            <label htmlFor="roleToggle" className="relative inline-flex items-center cursor-pointer w-3/4">
               <input
                 type="checkbox"
                 id="roleToggle"
@@ -94,15 +107,36 @@ const Invite = () => {
             </label>
           </div>
 
-          <div className="mb-4">
+          <div className="flex items-start mb-2">
+            <label htmlFor="message" className="font-medium text-sm w-1/4 text-right pr-2 mt-1">
+              Message:
+            </label>
             <textarea
+              id="message"
               value={customMessage}
               onChange={handleMessageChange}
               onFocus={handleFocus}
               onBlur={handleBlur}
               placeholder="Enter your message here..."
-              className="w-full h-24 border border-gray-300 rounded-md p-2 text-sm focus:outline-none focus:border-blue-400"
+              className="w-3/4 h-24 border border-gray-300 rounded-md p-1 text-sm focus:outline-none focus:border-blue-400"
             />
+          </div>
+
+          <div className="flex items-start mb-2">
+            <label className="font-medium text-sm w-1/4 text-right pr-2 mt-1">Communities:</label>
+            <div className="w-3/4 grid grid-cols-1 sm:grid-cols-2 gap-y-2">
+              {["Mentor Matrix", "ProNet", "Pathway Pioneers", "Peer Power", "Insight Incubator", "SkillSpace"].map((community) => (
+                <label key={community} className="flex items-center space-x-1">
+                  <input
+                    type="checkbox"
+                    value={community}
+                    checked={selectedCommunities.includes(community)}
+                    onChange={handleCommunityChange}
+                  />
+                  <span>{community}</span>
+                </label>
+              ))}
+            </div>
           </div>
 
           <button type="submit" className="w-full bg-blue-500 text-white rounded-md py-2 text-sm hover:bg-blue-600 transition">
