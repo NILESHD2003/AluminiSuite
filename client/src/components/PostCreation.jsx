@@ -132,7 +132,7 @@ function PostModal() {
                 onChange={handleImageChange}
                 multiple
                 className="hidden"
-                id="file-upload"
+                id="file-upload" 
               />
               <label htmlFor="file-upload" className="cursor-pointer text-gray-500">
                 <FiFile size={20} />
