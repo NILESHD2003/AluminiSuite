@@ -1,11 +1,11 @@
-const mongoose = require('mongoose');
-const Institute = require('../Model/Institute.Model');
+const Host = require('../Model/Host.Model');
 const OTP = require('../Model/OTP.Model');
+const Member = require('../Model/Member.Model');
 const otpGenerator = require('otp-generator');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-exports.registerInstitute = async (req, res) => {
+exports.registerHost = async (req, res) => {
     try {
         const { name, email, password, confirmPassword, phone, otp } = req.body;
 
@@ -25,12 +25,12 @@ exports.registerInstitute = async (req, res) => {
         }
 
         // check if the institute already exists
-        const institute = await Institute.findOne({ email });
+        const host = await Host.findOne({ email });
 
-        if (institute) {
+        if (host) {
             return res.status(400).json({
                 success: false,
-                message: 'Institute already exists'
+                message: 'Host already exists'
             })
         }
 
@@ -48,7 +48,7 @@ exports.registerInstitute = async (req, res) => {
         }
 
         // create the institute
-        const newInstitute = await Institute.create({
+        const newHost = await Host.create({
             name,
             email,
             password: hashedPassword,
@@ -58,7 +58,8 @@ exports.registerInstitute = async (req, res) => {
         // send confirmation response
         return res.status(201).json({
             success: true,
-            message: 'Institute registered successfully. Continue to login.'
+            message: 'Host registered successfully. Continue to login.'
+            // TODO: send token as cookie for auto login.
         });
     } catch (error) {
         console.log(error);
@@ -69,7 +70,7 @@ exports.registerInstitute = async (req, res) => {
     }
 };
 
-exports.loginInstitute = async (req, res) => {
+exports.loginHost = async (req, res) => {
     try {
         const { email, password } = req.body;
 
@@ -82,9 +83,9 @@ exports.loginInstitute = async (req, res) => {
         }
 
         // check if the institute exists
-        const institute = await Institute.findOne({ email });
+        const host = await Host.findOne({ email });
 
-        if (!institute) {
+        if (!host) {
             return res.status(400).json({
                 success: false,
                 message: 'Email not found'
@@ -92,20 +93,21 @@ exports.loginInstitute = async (req, res) => {
         }
 
         // check if password is correct using hashed password
-        if (!bcrypt.compareSync(password, institute.password)) {
+        if (!bcrypt.compareSync(password, host.password)) {
             return res.status(401).json({
                 success: false,
                 message: 'Invalid password'
             })
         }
         // generate token and send as cookie
-        const token = jwt.sign({ id: institute._id }, process.env.JWT_SECRET, {
+        const token = jwt.sign({ id: host._id }, process.env.JWT_SECRET, {
             expiresIn: '7d'
         });
 
         return res.cookie('token', token, { httpOnly: true }).status(200).json({
             success: true,
-            message: 'Institute logged in successfully'
+            message: 'Host logged in successfully',
+            id: host._id
         })
     } catch (error) {
         console.log(error);
@@ -118,23 +120,25 @@ exports.loginInstitute = async (req, res) => {
 
 exports.sendOTP = async (req, res) => {
     try {
-        const { email, instituteName } = req.body;
+        const { email, hostName } = req.body;
 
-        // validate email
-        if (!email || !instituteName) {
+        // validate email and host name
+        if (!email || !hostName) {
             return res.status(400).json({
                 success: false,
-                message: `Please provide email and institute name`,
+                message: `Please provide email and host name`,
             })
         }
 
-        var otp = otpGenerator.generate(6, {
+        var otp = otpGenerator.generate(4, {
             upperCaseAlphabets: true,
             lowerCaseAlphabets: false,
             specialChars: false,
             digits: true,
-        })
-        const result = await OTP.findOne({ otp: otp })
+        });
+
+        const result = await OTP.findOne({ otp: otp });
+
         while (result) {
             otp = otpGenerator.generate(4, {
                 upperCaseAlphabets: true,
@@ -144,8 +148,8 @@ exports.sendOTP = async (req, res) => {
             })
         }
         console.log("OTP", otp);
-        const otpPayload = { email, otp, instituteName }
-        const otpBody = await OTP.create(otpPayload)
+        const otpPayload = { email, otp, hostName };
+        const otpBody = await OTP.create(otpPayload);
 
         return res.status(200).json({
             success: true,
@@ -156,4 +160,53 @@ exports.sendOTP = async (req, res) => {
         console.log("Ithe ", error)
         return res.status(500).json({ success: false, error: error.message })
     }
-}
+};
+
+exports.loginMember = async (req, res) => {
+    try{
+        const { email, password } = req.body;
+
+        // validation
+        if(!email || !password){
+            return res.status(400).json({
+                success: false,
+                message: 'Please fill all the fields'
+            })
+        }
+
+        // check if the member exists
+        const member = await Member.findOne({ email });
+
+        if(!member){
+            return res.status(400).json({
+                success: false,
+                message: 'Email not found'
+            })
+        }
+
+        // check if password is correct using hashed password
+        if(!bcrypt.compare(password, member.password)){
+            return res.status(401).json({
+                success: false,
+                message: 'Invalid password'
+            })
+        }
+
+        // generate token and send as cookie
+        const token = jwt.sign({ id: member._id }, process.env.JWT_SECRET, {
+            expiresIn: '15d'
+        });
+
+        return res.cookie('token', token, { httpOnly: true }).status(200).json({
+            success: true,
+            message: 'Member logged in successfully',
+            id: member._id
+        })
+    }catch(error){
+        console.log(error);
+        return res.status(500).json({
+            success: false,
+            message: 'Internal server error'
+        })
+    }
+};

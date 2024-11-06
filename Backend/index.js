@@ -40,6 +40,8 @@ app.get('/status', (req, res)=>{
 
 // Routes
 app.use('/api/v1/auth', require('./Routes/Authentication.Route'));
+app.use('/api/v1/host', require('./Routes/Host.Route'));
+app.use('/api/v1/member', require('./Routes/Member.Route'));
 
 app.listen(PORT, () => {
     console.log(`Server is running on ${PORT}`);

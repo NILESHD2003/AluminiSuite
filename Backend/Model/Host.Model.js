@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const InstituteSchema = new mongoose.Schema({
+const HostSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true
@@ -20,9 +20,6 @@ const InstituteSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    website: {
-        type: String
-    },
     logo: {
         type: String
     },
@@ -33,12 +30,16 @@ const InstituteSchema = new mongoose.Schema({
         type: Boolean,
         default: true
     },
-    created: {
+    createdAt: {
         type: Date,
         default: Date.now
     },
-    contactInfo :{
-        email :{
+    updatedAt: {
+        type: Date,
+        default: Date.now
+    },
+    contactInfo: {
+        email: {
             type: String,
         },
         phNo: {
@@ -47,9 +48,29 @@ const InstituteSchema = new mongoose.Schema({
         website: {
             type: String,
         },
-    }
+    },
+    socials: {
+        facebook: {
+            type: String,
+        },
+        twitter: {
+            type: String,
+        },
+        linkedIn: {
+            type: String,
+        },
+        instagram: {
+            type: String,
+        },
+    },
+    communities: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Community'
+    }],
+}, {
+    timestamps: true
 });
 
-const Institute = mongoose.model('Institute', InstituteSchema);
+const Host = mongoose.model('Host', HostSchema);
 
-module.exports = Institute;
+module.exports = Host;

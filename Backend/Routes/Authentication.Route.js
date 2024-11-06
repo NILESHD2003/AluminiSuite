@@ -1,10 +1,11 @@
 const express = require('express');
 const router = express.Router();
 
-const {sendOTP, loginInstitute, registerInstitute} = require('../Controller/Authentication.Controller');
+const {sendOTP, loginHost, registerHost, loginMember} = require('../Controller/Authentication.Controller');
 
 router.post('/sendOTP', sendOTP);
-router.post('/institute/login', loginInstitute);
-router.post('/institute/signup', registerInstitute);
+router.post('/host/login', loginHost);
+router.post('/host/signup', registerHost);
+router.post('/member/login', loginMember);
 
 module.exports = router;

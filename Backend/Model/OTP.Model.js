@@ -12,7 +12,7 @@ const OTPSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    instituteName: {
+    hostName: {
         type: String,
         required: true,
     },
@@ -41,7 +41,7 @@ async function sendVerificationEmail(email, otp, instituteName) {
 // Define a post-save hook to send email after the document has been saved
 OTPSchema.pre("save", async function (next) {
     if (this.isNew) {
-        await sendVerificationEmail(this.email, this.otp, this.instituteName);
+        await sendVerificationEmail(this.email, this.otp, this.hostName);
     }
     next();
 });
