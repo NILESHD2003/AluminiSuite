@@ -3,6 +3,7 @@ const OTP = require('../Model/OTP.Model');
 const Member = require('../Model/Member.Model');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const otpGenerator = require('otp-generator');
 
 exports.registerHost = async (req, res) => {
     try {
@@ -130,7 +131,7 @@ exports.sendOTP = async (req, res) => {
         }
 
         var otp = otpGenerator.generate(4, {
-            upperCaseAlphabets: true,
+            upperCaseAlphabets: false,
             lowerCaseAlphabets: false,
             specialChars: false,
             digits: true,
@@ -140,7 +141,7 @@ exports.sendOTP = async (req, res) => {
 
         while (result) {
             otp = otpGenerator.generate(4, {
-                upperCaseAlphabets: true,
+                upperCaseAlphabets: false,
                 lowerCaseAlphabets: false,
                 specialChars: false,
                 digits: true,

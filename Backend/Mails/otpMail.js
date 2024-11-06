@@ -17,20 +17,16 @@ const otpMail = (otp, instituteName) => {
             font-family: 'Poppins', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #ffffff;
-            color: #14213D;
             user-select: none;
-            /* Make entire template unselectable */
         }
 
         .container {
             max-width: 600px;
             margin: 20px auto;
-            background-color: #FFFFFF;
-            border: 2px solid #14213D;
-            border-radius: 10px;
+            margin-top: 0;
+            /* border: 1px solid #14213D;
+            border-radius: 10px; */
             padding: 20px;
-            box-shadow: 0 4px 8px #3658a1;
         }
 
         .header {
@@ -41,17 +37,6 @@ const otpMail = (otp, instituteName) => {
             padding: 10px;
         }
 
-        .header h1 {
-            font-size: 28px;
-            margin: 0 5px;
-            font-family: "Pacifico", serif;
-            font-weight: 400;
-        }
-
-        .header h1:last-child {
-            color: #FCA311;
-        }
-
         .golden-text {
             color: #FCA311;
         }
@@ -59,12 +44,17 @@ const otpMail = (otp, instituteName) => {
         .message {
             text-align: left;
             font-size: 16px;
-            line-height: 1.6;
+            line-height: 1.5;
+            /* Adjusted for balanced line spacing */
             color: #14213D;
         }
 
+        /* Line spacing adjustments */
         .message p {
-            margin: 10px 0;
+            line-height: 1;
+            /* Set to 0 spacing within each paragraph */
+            margin: 0 0 1.5em 0;
+            /* Adds space between paragraphs */
         }
 
         .otp-container {
@@ -88,7 +78,6 @@ const otpMail = (otp, instituteName) => {
             text-align: center;
             line-height: 38px;
             user-select: text;
-            /* Make OTP boxes selectable */
         }
 
         .otp-container .dash {
@@ -102,19 +91,40 @@ const otpMail = (otp, instituteName) => {
 
         .footer {
             text-align: center;
-            padding: 0.5px;
+            width: 100%;
             background-color: #FCA311;
             color: #14213D;
             font-size: 12px;
             border-radius: 0 0 10px 10px;
         }
+
+        .logo {
+            width: 150px;
+            height: auto;
+            margin: 10px auto;
+            padding: 0;
+            display: block;
+        }
     </style>
+    <script>
+        const otp = ${otp};
+
+        function copyOTP() {
+            navigator.clipboard.writeText(otp).then(() => {
+                alert("OTP copied to clipboard!");
+            }).catch(err => {
+                console.error('Failed to copy OTP: ', err);
+            });
+        }
+    </script>
 </head>
 
 <body>
     <div class="container">
         <div class="header">
-            <h1>Alumni<span class="golden-text">Suite</span></h1>
+            <!-- <h1>Alumni<span class="golden-text">Suite</span></h1> -->
+            <img class="logo" src="https://i.postimg.cc/DfQ6QwpM/1AB272.png" alt="logo">
+            <!-- <img class="logo" src="./alumnisuite_logo_-removebg-preview.png" alt="logo"> -->
         </div>
         <div class="body">
             <div class="message">
@@ -130,16 +140,14 @@ const otpMail = (otp, instituteName) => {
                 </p>
                 <!-- <p>For added security, we have generated a One-Time Password (OTP) for your access to the AlumniSuite platform.</p> -->
                 <div class="otp-container golden-text">
-                    <span class="otp-box">${otp[0]}</span>
-                    <span class="otp-box">${otp[1]}</span>
-                    <span class="otp-box">${otp[2]}</span>
-                    <span class="dash">–</span>
-                    <span class="otp-box">${otp[3]}</span>
-                    <span class="otp-box">${otp[4]}</span>
-                    <span class="otp-box">${otp[5]}</span>
+                    <span class="otp-box" onclick="copyOTP()">${otpArray[0]}</span>
+                    <span class="otp-box" onclick="copyOTP()">${otpArray[1]}</span>
+                    <span class="otp-box" onclick="copyOTP()">${otpArray[2]}</span>
+                    <span class="otp-box" onclick="copyOTP()">${otpArray[3]}</span>
                 </div>
                 <p>
-                    This code is valid for the next 10 minutes. If you did not initiate this registration, please ignore this email.
+                    This code is valid for the next 10 minutes. If you did not initiate this registration, please ignore
+                    this email.
                 </p>
                 <p>
                     Once your email is verified, you can proceed to access all the features available for your
@@ -149,10 +157,10 @@ const otpMail = (otp, instituteName) => {
                     If you have any questions or need assistance, please don't hesitate to reach out to our support team
                     at <a href="mailto:deshpandenilesh2003@gmail.com">deshpandenilesh2003@gmail.com</a>.
                 </p>
-                <p>
+                <p style="line-height: 2;">
                     Thank you for choosing AluminiSuite!
                 </p>
-                <p>Best Regards,</p>
+                <p style="line-height: 0;">Best Regards,</p>
                 <p><strong>AluminiSuite</strong></p>
             </div>
         </div>
@@ -161,7 +169,8 @@ const otpMail = (otp, instituteName) => {
         </div>
     </div>
 </body>
-</html>`
+
+</html>`;
 }
 
 module.exports = otpMail;

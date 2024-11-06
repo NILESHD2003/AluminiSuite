@@ -4,6 +4,9 @@ const Community = require('../Model/Community.Model');
 const generateSlug = require('../Utils/SlugGenerator');
 const generator = require('generate-password');
 
+const mailSender = require('../Utils/MailSender');
+const inviteMail = require('../Mails/inviteMail');
+
 exports.inviteMember = async (req, res) => {
     try {
         const { email, role, communities, hostId } = req.body;
@@ -107,6 +110,16 @@ exports.inviteMember = async (req, res) => {
         // }
 
         // TODO : Add email sending logic
+        const webUrl = process.env.WEB_URL || 'http://localhost:5173';
+
+        // Send the invitation email
+        const mailResponse = await mailSender(
+            email,
+            'Invitation to join AlumniSuite',
+            inviteMail(email, host.name, invitationToken, webUrl, host.email)
+        );
+
+        console.log('Email sent successfully:', mailResponse.response);
 
         return res.status(200).json({
             success: true,
