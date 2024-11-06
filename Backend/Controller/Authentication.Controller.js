@@ -1,7 +1,6 @@
 const Host = require('../Model/Host.Model');
 const OTP = require('../Model/OTP.Model');
 const Member = require('../Model/Member.Model');
-const otpGenerator = require('otp-generator');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
