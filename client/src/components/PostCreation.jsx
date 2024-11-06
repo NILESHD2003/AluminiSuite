@@ -136,7 +136,7 @@ function PostModal() {
               />
               <label htmlFor="file-upload" className="cursor-pointer text-gray-500">
                 <FiFile size={20} />
-              </label>
+              </label> 
 
               {/* Emoji Picker Icon */}
               <button
