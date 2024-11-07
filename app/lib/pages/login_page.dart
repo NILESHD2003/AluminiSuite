@@ -1,3 +1,4 @@
+import 'package:aluminiSuite/pages/home_page.dart';
 import 'package:aluminiSuite/pages/signup_page.dart';
 import 'package:flutter/material.dart';
 
@@ -117,6 +118,7 @@ class _LoginPageState extends State<LoginPage> {
               child: TextButton(
                 onPressed: () {
                   //   TODO: Throw user to landing page/ dashboard and store token and other data to persistent store
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => HomePage()));
                   print("Logged In");
                 },
                 style: ButtonStyle(

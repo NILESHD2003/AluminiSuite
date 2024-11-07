@@ -1,3 +1,4 @@
+import 'package:aluminiSuite/pages/home_page.dart';
 import 'package:flutter/material.dart';
 
 class PasswordSetPage extends StatefulWidget {
@@ -116,6 +117,7 @@ class _PasswordSetPageState extends State<PasswordSetPage> {
                 child: TextButton(
                   onPressed: () {
                     //   TODO: Throw user to landing page/ dashboard and store token and other data to persistent store
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const HomePage()));
                     print("Signup Complete");
                   },
                   style: ButtonStyle(
