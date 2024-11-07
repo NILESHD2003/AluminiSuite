@@ -108,6 +108,11 @@ module.exports = {
   				'30%, 60%': {
   					'background-position': 'calc(100% + var(--shiny-width)) 0'
   				}
+  			},
+  			'border-beam': {
+  				'100%': {
+  					'offset-distance': '100%'
+  				}
   			}
   		},
   		animation: {
@@ -120,7 +125,8 @@ module.exports = {
   			'marquee-vertical': 'marquee-vertical var(--duration) linear infinite',
   			meteor: 'meteor 5s linear infinite',
   			shine: 'shine var(--duration) infinite linear',
-  			'shiny-text': 'shiny-text 8s infinite'
+  			'shiny-text': 'shiny-text 8s infinite',
+  			'border-beam': 'border-beam calc(var(--duration)*1s) infinite linear'
   		},
   		colors: {
   			sidebar: {

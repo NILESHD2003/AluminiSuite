@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
 
 const Header = ({ children }) => {
+    const { logout } = useAuth();
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
     const toggleSidebar = () => {
@@ -32,19 +35,19 @@ const Header = ({ children }) => {
                             <nav aria-label="Global">
                                 <ul className="flex items-center gap-6 text-sm">
                                     <li>
-                                        <a className="text-[#14213d] transition hover:text-[#14213d]/75" href="#"> About </a>
+                                        <Link className="text-[#14213d] transition hover:text-[#14213d]/75" to="/Dashboard"> Dashboard </Link>
                                     </li>
                                     <li>
-                                        <a className="text-[#14213d] transition hover:text-[#14213d]/75" href="#"> Careers </a>
+                                        <a className="text-[#14213d] transition hover:text-[#14213d]/75" href="/AddStudent"> AddStudent </a>
                                     </li>
                                     <li>
-                                        <a className="text-[#14213d] transition hover:text-[#14213d]/75" href="#"> History </a>
+                                        <a className="text-[#14213d] transition hover:text-[#14213d]/75" href="/manageNetworks"> manageNetworks </a>
                                     </li>
                                     <li>
-                                        <a className="text-[#14213d] transition hover:text-[#14213d]/75" href="#"> Services </a>
+                                        <a className="text-[#14213d] transition hover:text-[#14213d]/75" href="/Invite"> Invite </a>
                                     </li>
                                     <li>
-                                        <a className="text-[#14213d] transition hover:text-[#14213d]/75" href="#"> Projects </a>
+                                        <a className="text-[#14213d] transition hover:text-[#14213d]/75" href="/Profile"> Profile </a>
                                     </li>
                                     <li>
                                         <a className="text-[#14213d] transition hover:text-[#14213d]/75" href="#"> Blog </a>
@@ -55,21 +58,22 @@ const Header = ({ children }) => {
 
                         <div className="flex items-center gap-4">
                             <div className="sm:flex sm:gap-4">
-                                <a
+                                <button
+                                    onClick={logout}
                                     className="rounded-md bg-[#fca311] px-5 py-2.5 text-sm font-medium text-white shadow"
                                     href="#"
                                 >
-                                    Login
-                                </a>
+                                    Log Out
+                                </button>
 
-                                <div className="hidden sm:flex">
+                                {/* <div className="hidden sm:flex">
                                     <a
                                         className="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-[#14213d]"
                                         href="#"
                                     >
                                         Register
                                     </a>
-                                </div>
+                                </div> */}
                             </div>
 
                             <div className="block md:hidden">

@@ -78,6 +78,7 @@ const LandingPage = () => {
                 <MarqueeDemo />
             </div>
 
+
             {/* Footer */}
             <div className="w-full mb-8" data-aos="fade-up">
                 <Footer />

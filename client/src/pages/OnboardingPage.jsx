@@ -1,28 +1,20 @@
+import axios from 'axios';
 import React, { useState } from 'react';
-
+import { useParams } from 'react-router-dom';
+import { toast } from "sonner"
 const OnboardingPage = () => {
+    const params = useParams()
     const [formData, setFormData] = useState({
-        firstName: '',
-        lastName: '',
+        name: '',
         dob: '',
         gender: '',
         location: '',
         password: '',
         confirmPassword: '',
-        mobile: '',
+        phone: '',
     });
 
     const [error, setError] = useState('');
-
-    const handleMobileChange = (e) => {
-        const value = e.target.value;
-        if (/^\d{0,10}$/.test(value)) {
-            setFormData({
-                ...formData,
-                mobile: value,
-            });
-        }
-    };
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -38,18 +30,50 @@ const OnboardingPage = () => {
         }
     };
 
-    const handleSubmit = (e) => {
+    const handlePhoneChange = (e) => {
+        const value = e.target.value;
+        if (/^\d{0,10}$/.test(value)) {
+            setFormData({
+                ...formData,
+                phone: value,
+            });
+        }
+    };
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if (formData.password !== formData.confirmPassword) {
             setError('Passwords do not match');
         } else {
-            console.log('Form Submitted:', formData);
+            try {
+
+                const data = await axios.post(`https://aluminisuite.onrender.com/api/v1/member/onboard?invite=${params.token}`, formData);
+
+                console.log(data);
+                if (data.status == 400) {
+
+                    toast("Failed to create event!", {
+                        description: "Please try again",
+                    });
+                    return
+                }
+
+                toast("Success!", {
+                    description: "Testing toast notification",
+                });
+            }
+            catch (error) {
+                toast("Failed to create event!", {
+                    description: "Please try again",
+                });
+                console.log(error);
+            }
         }
     };
 
     return (
         <div className="flex justify-center items-center min-h-screen bg-gray-100 px-4 sm:px-0 font-primary">
-            <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
+            <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
                 <h2 className="text-2xl font-semibold text-center text-black mb-4">
                     Welcome to <span className="text-3xl font-logo text-[#14213D]">Alumini</span><span className="text-3xl font-logo text-[#FCA311]">Suite</span>
                 </h2>
@@ -57,20 +81,11 @@ const OnboardingPage = () => {
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <input
                         type="text"
-                        placeholder="First Name"
-                        name="firstName"
-                        value={formData.firstName}
+                        placeholder="Full Name"
+                        name="name"
+                        value={formData.name}
                         onChange={handleChange}
-                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500"
-                        required
-                    />
-                    <input
-                        type="text"
-                        placeholder="Last Name"
-                        name="lastName"
-                        value={formData.lastName}
-                        onChange={handleChange}
-                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500"
+                        className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500"
                         required
                     />
                     <input
@@ -78,7 +93,7 @@ const OnboardingPage = () => {
                         name="dob"
                         value={formData.dob}
                         onChange={handleChange}
-                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500"
+                        className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500"
                         required
                     />
                     <div className="flex gap-4">
@@ -86,10 +101,10 @@ const OnboardingPage = () => {
                             <input
                                 type="radio"
                                 name="gender"
-                                value="male"
-                                checked={formData.gender === 'male'}
+                                value="Male"
+                                checked={formData.gender === 'Male'}
                                 onChange={handleChange}
-                                className="mr-2  transform scale-125" 
+                                className="mr-2 transform scale-125"
                             />
                             Male
                         </label>
@@ -97,10 +112,10 @@ const OnboardingPage = () => {
                             <input
                                 type="radio"
                                 name="gender"
-                                value="female"
-                                checked={formData.gender === 'female'}
+                                value="Female"
+                                checked={formData.gender === 'Female'}
                                 onChange={handleChange}
-                                className="mr-2  transform scale-125" 
+                                className="mr-2 transform scale-125"
                             />
                             Female
                         </label>
@@ -108,11 +123,11 @@ const OnboardingPage = () => {
                             <input
                                 type="radio"
                                 name="gender"
-                                value="other"
-                                checked={formData.gender === 'other'}
+                                value="Other"
+                                checked={formData.gender === 'Other'}
                                 onChange={handleChange}
-                                className="mr-2  transform scale-125" 
-                                />
+                                className="mr-2 transform scale-125"
+                            />
                             Other
                         </label>
                     </div>
@@ -122,7 +137,18 @@ const OnboardingPage = () => {
                         name="location"
                         value={formData.location}
                         onChange={handleChange}
-                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500"
+                        className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500"
+                        required
+                    />
+                    <input
+                        type="text"
+                        placeholder="Phone Number"
+                        name="phone"
+                        value={formData.phone}
+                        onChange={handlePhoneChange}
+                        className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500"
+                        maxLength="10"
+                        title="Please enter a valid 10-digit phone number"
                         required
                     />
                     <input
@@ -131,7 +157,7 @@ const OnboardingPage = () => {
                         name="password"
                         value={formData.password}
                         onChange={handleChange}
-                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500"
+                        className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500"
                         required
                     />
                     <input
@@ -140,18 +166,7 @@ const OnboardingPage = () => {
                         name="confirmPassword"
                         value={formData.confirmPassword}
                         onChange={handleChange}
-                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500"
-                        required
-                    />
-                    <input
-                        type="text"
-                        placeholder="Mobile No."
-                        name="mobile"
-                        value={formData.mobile}
-                        onChange={handleMobileChange}
-                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500"
-                        maxLength="10"
-                        title="Please enter a valid 10-digit phone number"
+                        className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500"
                         required
                     />
                     {error && <p className="text-red-500 text-sm">{error}</p>}

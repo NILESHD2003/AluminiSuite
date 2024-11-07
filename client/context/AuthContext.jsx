@@ -1,7 +1,7 @@
 // src/context/AuthContext.js
 
 import React, { createContext, useContext, useState } from 'react';
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const AuthContext = createContext();
 
@@ -12,12 +12,16 @@ export const useAuth = () => {
 
 // AuthProvider component
 export const AuthProvider = ({ children }) => {
+    const navigate = useNavigate()
     const [user, setUser] = useState("null");
 
 
     const login = (userData) => {
+
+
+        // setUser("user");
         setUser(userData);
-        <Navigate to="/" /> // Redirect to homepage or dashboard on login
+        navigate("/manageNetworks")  // Redirect to homepage or dashboard on login
     };
 
     const logout = () => {
@@ -25,7 +29,7 @@ export const AuthProvider = ({ children }) => {
         navigate('/login'); // Redirect to login page on logout
     };
 
-    const value = { user, login, logout, isAuthenticated: !!user };
+    const value = { user, setUser, login, logout, isAuthenticated: !!user };
 
     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
