@@ -1,10 +1,14 @@
 const mongoose = require('mongoose');
-const { create } = require('./Member.Model');
 
 const PostSchema = new mongoose.Schema({
     owner: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Member',
+        required: true
+    },
+    host: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Host',
         required: true
     },
     content: {

@@ -1,5 +1,6 @@
 const Member = require('../Model/Member.Model');
 const Invite = require('../Model/Invite.Model');
+
 const bcrypt = require('bcrypt');
 
 exports.onboardMember = async (req, res) => {

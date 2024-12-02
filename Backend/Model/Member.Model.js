@@ -42,13 +42,6 @@ const MemberSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    // additional fields for contained institution
-    community: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Community'
-        }
-    ],
     // additional details for posts
     posts: [
         {

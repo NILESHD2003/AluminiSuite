@@ -63,10 +63,6 @@ const HostSchema = new mongoose.Schema({
             type: String,
         },
     },
-    communities: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Community'
-    }],
 }, {
     timestamps: true
 });

@@ -42,6 +42,7 @@ app.get('/status', (req, res)=>{
 app.use('/api/v1/auth', require('./Routes/Authentication.Route'));
 app.use('/api/v1/host', require('./Routes/Host.Route'));
 app.use('/api/v1/member', require('./Routes/Member.Route'));
+app.use('/api/v1/posts', require('./Routes/Post.Route'));
 
 app.listen(PORT, () => {
     console.log(`Server is running on ${PORT}`);
